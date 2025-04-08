@@ -1,0 +1,325 @@
+.editor {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+/* LEFT */
+.layers {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.layers h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.layers p {
+  font-size: 15px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.layer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.layer:hover,
+.layer.selected {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.layerImage {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #f0f0f0;
+}
+
+/* WORKSPACE */
+.workspace {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 64px 16px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.canvas {
+  width: 375px;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.text {
+  position: absolute;
+  z-index: 999;
+  margin-inline: 2px;
+  max-width: 100%;
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  padding: 8px;
+}
+
+.text input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: inherit;
+  cursor: grab;
+  width: 100%;
+}
+
+.deleteTextButton {
+  position: absolute;
+  top: -36px;
+  right: 0;
+  background-color: white;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.canvas img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* OPTIONS */
+.options {
+  flex: 1;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.editingOption {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.editingOption span {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.editingOption input {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.editingOption input:focus {
+  border-color: #4caf50;
+}
+
+.textColor,
+.bgColor {
+  position: relative;
+}
+
+.colorPreview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.colorPicker {
+  position: absolute;
+  top: 120%;
+  left: 0;
+}
+
+/* ORIENTATIONS and SIZES */
+.orientations,
+.sizes {
+  padding: 6px;
+  border-radius: 12px;
+  background-color: #f4f4f4;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 8px;
+  justify-content: space-between;
+  width: max-content;
+  transition: all 0.3s ease;
+}
+
+.orientation,
+.size {
+  padding: 10px;
+  border-radius: 12px;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.orientation.selected,
+.size.selected {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .editor {
+    flex-direction: column;
+  }
+
+  .workspace {
+    padding: 48px 16px;
+  }
+
+  .canvas {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+  }
+
+  .layers {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .options {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .layer {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .text input {
+    font-size: 15px;
+  }
+
+  .editingOption input {
+    padding: 14px;
+  }
+
+  .orientations,
+  .sizes {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .orientation,
+  .size {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .canvas {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .text input {
+    font-size: 14px;
+  }
+
+  .editingOption input {
+    padding: 12px;
+  }
+
+  .layers h3 {
+    font-size: 20px;
+  }
+
+  .layers p {
+    font-size: 14px;
+  }
+
+  .layer {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .orientations,
+  .sizes {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .canvas {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .text input {
+    font-size: 12px;
+  }
+
+  .editingOption input {
+    padding: 10px;
+  }
+
+  .layers h3 {
+    font-size: 18px;
+  }
+
+  .layers p {
+    font-size: 12px;
+  }
+
+  .layer {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .orientations,
+  .sizes {
+    font-size: 12px;
+    padding: 6px;
+  }
+}

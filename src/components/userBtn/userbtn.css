@@ -1,0 +1,132 @@
+/* User button container */
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+/* Avatar image (make it circular) */
+.userButton img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover;
+}
+
+/* Arrow icon for dropdown */
+.userButton .arrow {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown menu */
+.userOptions {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: white;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.177);
+  min-width: 150px;
+}
+
+/* User option styling in the dropdown */
+.userOption {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for user options */
+.userOption:hover {
+  background-color: #f1f1f1;
+  color: gray;
+}
+
+/* Login/Signup button */
+/* Login/Signup button */
+.loginLink {
+  font-size: 18px;
+  padding: 16px 24px;
+  border-radius: 32px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  white-space: nowrap; /* Prevent the text from wrapping */
+}
+
+/* Hover effect for login/signup button */
+.loginLink:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Optional: Add an icon before login/signup text */
+.loginLink::before {
+  content: url('/path-to-your-icon/icon.svg'); /* Replace with your icon path */
+  margin-right: 8px;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 475px) {
+  /* Make the login/signup button full-width and adjust padding */
+  .loginLink {
+    font-size: 16px;
+    padding: 8px 16px; /* Slightly reduced padding for smaller screens */
+    width: auto; /* Avoid full-width and allow it to shrink */
+    border-radius: 8px; /* Slightly less rounded for mobile */
+    text-align: center;
+  }
+
+  /* Optional: Adjust text size if needed */
+  .loginLink span {
+    white-space: nowrap;
+  }
+
+  /* Make sure the Login/Sign Up button fits properly */
+  .loginLink {
+    font-size: 16px;
+    padding: 8px 16px; /* Adjust for small screen */
+  }
+
+  /* Adjust spacing and font for smaller screens */
+  .userButton {
+    gap: 12px; /* Less gap between elements */
+  }
+
+  /* Hide the user button on smaller screens */
+  .userButton {
+    display: none;
+  }
+
+  /* Make the dropdown smaller on mobile */
+  .userOptions {
+    width: 100%; /* Full width dropdown */
+    top: 100%;
+    right: 0;
+    padding: 12px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Adjust dropdown options for mobile */
+  .userOption {
+    padding: 12px;
+    font-size: 16px; /* Slightly larger font for mobile */
+    text-align: left;
+  }
+}
