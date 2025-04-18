@@ -1,6 +1,7 @@
 import React from "react";
 import "./galleryitem.css";
 import Image from "../image/ImageComponent";
+import { Link } from "react-router";
 
 
 

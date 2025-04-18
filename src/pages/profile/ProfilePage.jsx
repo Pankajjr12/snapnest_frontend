@@ -13,7 +13,7 @@ import useAuthStore from "../../utils/useAuthStore";
 
 const ProfilePage = () => {
   const [type, setType] = useState("saved");
-  const { currentUser, removeCurrentUser } = useAuthStore();
+
   const { username } = useParams();
 
   const { isPending, error, data } = useQuery({
@@ -45,12 +45,10 @@ const ProfilePage = () => {
         <Image path="/general/share.svg" alt="" />
         <div className="profileButtons">
           <button>Message</button>
-          {currentUser && (
-            <FollowButton
-              isFollowing={data.isFollowing}
-              username={data.username}
-            />
-          )}
+          <FollowButton
+            isFollowing={data.isFollowing}
+            username={data.username}
+          />
         </div>
         <Image path="/general/more.svg" alt="" />
       </div>

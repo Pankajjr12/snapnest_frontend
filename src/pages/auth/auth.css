@@ -11,8 +11,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 32px;
-    padding: 32px;
+    gap: 28px;
+    padding: 28px;
     border-radius: 32px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   }
@@ -25,7 +25,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
   
   .formGroup{
@@ -63,3 +63,51 @@
   .error{
     color: #e50829;
   }
+
+  /* auth.css */
+
+/* Profile Image Container */
+.profilePicContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Profile Image */
+.profilePic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #ddd;
+}
+
+/* Styling the Profile Image */
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* "+" Icon Button */
+.profilePic label {
+  position: relative;
+}
+
+/* Icon Style */
+.MuiIconButton-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}

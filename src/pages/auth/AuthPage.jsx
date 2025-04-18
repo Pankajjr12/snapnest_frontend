@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./auth.css";
 import { useNavigate } from "react-router";
 import Image from "../../components/image/ImageComponent";
 import apiRequest from "../../utils/apiRequest";
 import useAuthStore from "../../utils/useAuthStore";
 import { Snackbar, Alert } from "@mui/material"; // Import Material-UI Snackbar and Alert
+import { IconButton } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle"; // Import the + icon
 
 const AuthPage = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -12,30 +14,29 @@ const AuthPage = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false); // State to handle snackbar visibility
   const [snackbarMessage, setSnackbarMessage] = useState(""); // State to store snackbar message
   const [snackbarSeverity, setSnackbarSeverity] = useState("error"); // State to control snackbar severity (success, error, info, warning)
+  const [profilePic, setProfilePic] = useState(null); // State to store the uploaded image
 
   const navigate = useNavigate();
-  const { setCurrentUser, setToken } = useAuthStore();
+
+  const { setCurrentUser } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+
+    if (profilePic) {
+      formData.append("profilePic", profilePic);
+    }
 
     try {
       const res = await apiRequest.post(
         `/users/auth/${isRegister ? "register" : "login"}`,
-        data
+        formData
       );
 
       setCurrentUser(res.data);
-      setToken(res.data.token);
-      document.cookie = `token=${res.data.token}; max-age=2592000; path=/;`;
-      setSnackbarMessage(
-        isRegister ? "Registration successful!" : "Login successful!"
-      );
-      setSnackbarSeverity("success");
-      setOpenSnackbar(true);
-      navigate("/"); // Redirect to homepage after successful login
+
+      navigate("/");
     } catch (err) {
       setError(err.response.data.message);
       setSnackbarMessage(err.response.data.message);
@@ -48,13 +49,57 @@ const AuthPage = () => {
     setOpenSnackbar(false); // Close snackbar when clicked away
   };
 
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePic(file);
+    }
+  };
+
   return (
     <div className="authPage">
       <div className="authContainer">
         <Image path="/general/logo.png" w={36} h={36} alt="" />
         <h1>{isRegister ? "Create an Account" : "Login to your account"}</h1>
+
+        {/* Profile Image */}
+
         {isRegister ? (
           <form key="register" onSubmit={handleSubmit}>
+            <div className="profilePicContainer">
+              <input
+                type="file"
+                id="profilePicInput"
+                name="profilePic"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleProfilePicChange}
+              />
+              <label htmlFor="profilePicInput">
+                <div className="profilePic">
+                  {profilePic ? (
+                    <img
+                      src={URL.createObjectURL(profilePic)}
+                      alt="Profile"
+                      className="profileImage"
+                    />
+                  ) : (
+                    <IconButton
+                      component="span"
+                      sx={{
+                        backgroundColor: "#f0f0f0",
+                        borderRadius: "50%",
+                        padding: "10px",
+                      }}
+                    >
+                      <AddCircleIcon
+                        sx={{ fontSize: "36px", color: "#757575" }}
+                      />
+                    </IconButton>
+                  )}
+                </div>
+              </label>
+            </div>
             <div className="formGroup">
               <label htmlFor="username">Username</label>
               <input
@@ -97,7 +142,7 @@ const AuthPage = () => {
             </div>
             <button type="submit">Register</button>
             <p onClick={() => setIsRegister(false)}>
-              Already have an account? <b>Login</b>
+              Do you have an account? <b>Login</b>
             </p>
             {error && <p className="error">{error}</p>}
           </form>
@@ -125,7 +170,7 @@ const AuthPage = () => {
             </div>
             <button type="submit">Login</button>
             <p onClick={() => setIsRegister(true)}>
-              Don't have an account? <b>Register</b>
+              Don&apos;t have an account? <b>Register</b>
             </p>
             {error && <p className="error">{error}</p>}
           </form>

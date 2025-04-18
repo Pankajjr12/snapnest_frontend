@@ -1,33 +1,52 @@
-.collections{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(7,1fr);
-    gap: 16px;
-  }
-  
-  .collection{
-    margin-bottom: 32px;
-    cursor: pointer;
-  }
-  
-  .collection img{
-    width: 100%;
-    object-fit: cover;
-    border-radius: 16px;
-  }
+.collections {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 16px;
+}
 
-  .collectionInfo{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.collection {
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+
+.collection img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.collectionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.collectionInfo h1 {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.collectionInfo span {
+  color: gray;
+  font-size: 13px;
+}
+
+/* 🔽 RESPONSIVE GRID BREAKPOINTS */
+@media (max-width: 1200px) {
+  .collections {
+    grid-template-columns: repeat(5, 1fr);
   }
-  
-  .collectionInfo h1{
-    font-weight: 500;
-    font-size: 16px;
+}
+
+@media (max-width: 992px) {
+  .collections {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .collectionInfo span{
-    color: gray;
-    font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .collections {
+    grid-template-columns: repeat(2, 1fr);
   }
+}

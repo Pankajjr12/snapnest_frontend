@@ -39,7 +39,7 @@ const PostPage = () => {
     </svg>
     <div className="postContainer">
       <div className="postImg">
-        <Image path={data.media} alt="" w={460} />
+        <Image path={data.media} alt="" w={480} />
       </div>
       <div className="postDetails">
         <PostInteractions postId={id}/>

@@ -15,6 +15,15 @@
   display: none;
 }
 
+
+/* Hide icons on screens smaller than 640px (e.g. mobile) */
+@media (max-width: 640px) {
+  .overlayIcons {
+    display: none;
+  }
+}
+
+
 .galleryItem:hover .overlay {
   display: block;
   position: absolute;

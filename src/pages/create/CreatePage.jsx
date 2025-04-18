@@ -52,6 +52,8 @@ const CreatePage = () => {
     }
   }, [file]);
 
+  const boardFormRef = useRef(null); // 👈 Create ref
+
   const mutation = useMutation({
     mutationFn: addPost,
     onSuccess: (data) => {
@@ -68,7 +70,7 @@ const CreatePage = () => {
       formData.append("media", file);
       formData.append("textOptions", JSON.stringify(textOptions));
       formData.append("canvasOptions", JSON.stringify(canvasOptions));
-      formData.append("newBoard", newBoard);// Add the selected categories to the form data
+      formData.append("newBoard", newBoard); // Add the selected categories to the form data
       console.log(formData);
       mutation.mutate(formData);
     }
@@ -76,11 +78,20 @@ const CreatePage = () => {
 
   const { data, isPending, error } = useQuery({
     queryKey: ["formBoards"],
-    queryFn: () => apiRequest.get(`/boards`).then((res) => res.data),
+    queryFn: () =>
+      apiRequest.get(`/boards/${currentUser?._id}`).then((res) => res.data),
+    enabled: !!currentUser?._id,
   });
 
   const handleNewBoard = () => {
-    setIsNewBoardOpen((prev) => !prev);
+    setIsNewBoardOpen(true);
+    // scroll into view after opening
+    setTimeout(() => {
+      boardFormRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 0);
   };
 
   const handleCategoryChange = (e) => {
@@ -166,7 +177,11 @@ const CreatePage = () => {
                   <option value="">Choose a board</option>
                   {/* Safeguard to check if data is valid */}
                   {Array.isArray(data) && data.length > 0 ? (
-                    data.map((board) => (
+                    [
+                      ...new Map(
+                        data.map((board) => [board.title, board])
+                      ).values(),
+                    ].map((board) => (
                       <option value={board._id} key={board._id}>
                         {board.title}
                       </option>
@@ -188,8 +203,6 @@ const CreatePage = () => {
               </div>
             )}
 
-      
-
             <div className="createFormItem">
               <label htmlFor="tags">Tagged topics</label>
               <input type="text" placeholder="Add tags" name="tags" id="tags" />
@@ -200,6 +213,7 @@ const CreatePage = () => {
             <BoardForm
               setIsNewBoardOpen={setIsNewBoardOpen}
               setNewBoard={setNewBoard}
+              ref={boardFormRef}
             />
           )}
         </div>
