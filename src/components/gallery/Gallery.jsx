@@ -5,6 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "../skelton/Skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "../spinner/Loader";
 // TEMPORARY
 // const items = [
 //   {
@@ -211,7 +212,7 @@ const Gallery = ({  search, userId, boardId, type}) => {
       dataLength={allPins.length}
       next={fetchNextPage}
       hasMore={!!hasNextPage}
-      loader={<h4>Loading more pins</h4>}
+      loader={<Loader />}
       endMessage={<h3>All Posts Loaded!</h3>}
     >
       <div className="gallery">

@@ -15,6 +15,7 @@ const ProfilePage = () => {
   const [type, setType] = useState("saved");
 
   const { username } = useParams();
+  const currentUser = useAuthStore((state) => state.currentUser);  // Get the current user from the store
 
   const { isPending, error, data } = useQuery({
     queryKey: ["profile", username],
@@ -26,6 +27,9 @@ const ProfilePage = () => {
   if (error) return "An error has occurred: " + error.message;
 
   if (!data) return "User not found!";
+
+  // Check if the current user is viewing their own profile
+  const isCurrentUser = currentUser?.username === data.username;
 
   return (
     <div className="profilePage">
@@ -45,10 +49,12 @@ const ProfilePage = () => {
         <Image path="/general/share.svg" alt="" />
         <div className="profileButtons">
           <button>Message</button>
-          <FollowButton
-            isFollowing={data.isFollowing}
-            username={data.username}
-          />
+          {!isCurrentUser && (
+            <FollowButton
+              isFollowing={data.isFollowing}
+              username={data.username}
+            />
+          )}
         </div>
         <Image path="/general/more.svg" alt="" />
       </div>
