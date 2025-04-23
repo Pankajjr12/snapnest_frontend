@@ -116,7 +116,13 @@
 
   /* Make the dropdown smaller on mobile */
   .userOptions {
-    width: 100%; /* Full width dropdown */
+    position: absolute;
+    top: 100%; /* Position below the button */
+    right: 0;  /* Align to the right side */
+    z-index: 1000; /* Ensure it appears above other content */
+    background-color: white; /* Optional, depending on design */
+    border: 1px solid #ccc; /* Optional, for visual clarity */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);    width: 100%; /* Full width dropdown */
     top: 100%;
     right: 0;
     padding: 12px;

@@ -4,17 +4,17 @@
   flex-direction: column;
   gap: 16px;
   min-height: 0;
-  max-height: 300px; /* Adjust to fit your layout */
+  max-height: 300px;
   overflow-y: auto;
-  padding-right: 10px; /* Avoid content hiding under scrollbar */
+  padding-right: 10px;
   scrollbar-width: none;
+  position: relative; /* Ensure stacking context */
 }
 
 .comments::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* Safari and Chrome */
+  background: transparent;
 }
-
 
 .commentList {
   flex: 1;
@@ -22,6 +22,8 @@
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+  position: relative; /* Ensure stacking context */
+  z-index: 1; /* Lower z-index so emoji picker can appear on top */
 }
 
 .comment {
@@ -63,6 +65,8 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  position: relative;
+  z-index: 2; /* Ensure it's on top of comment list */
 }
 
 .commentForm input {
@@ -77,10 +81,64 @@
   cursor: pointer;
   font-size: 20px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure emoji icon is above other content */
 }
 
 .emojiPicker {
-  position: absolute;
-  right: 0;
-  bottom: 50px;
+  position: fixed; /* Make it fixed so it's on top of the viewport */
+  left: 50%;
+  transform: translateX(-50%); /* Center the emoji picker horizontally */
+  top: 60px; /* Position it above the comment list */
+  z-index: 1000; /* Ensure it appears above all other content */
+  max-width: 300px;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .commentForm {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .commentForm input {
+    font-size: 14px;
+  }
+
+  .emoji {
+    font-size: 18px;
+  }
+
+  .emojiPicker {
+    top: 50px; /* Adjust position on smaller screens */
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .commentForm {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .commentForm input {
+    font-size: 12px;
+  }
+
+  .emoji {
+    font-size: 16px;
+  }
+
+  .emojiPicker {
+    top: 45px; /* Adjust further on very small screens */
+    max-width: 200px;
+  }
 }

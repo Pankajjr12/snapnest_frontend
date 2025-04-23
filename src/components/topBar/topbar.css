@@ -1,25 +1,76 @@
-.topBar{
-    margin: 16px 0px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-right: 8px;
+.topBar {
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: 8px;
+}
+
+.search {
+  flex: 1;
+  background-color: #f1f1f1;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 8px; /* Add padding for input field */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .topBar {
+    margin: 16px 10px;
+    gap: 12px; /* Reduced gap between elements for tablets */
   }
-  
-  .search{
-    flex:1;
-    background-color: #f1f1f1;
-    border-radius: 16px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+
+  .search {
+    padding: 10px; /* Reduce padding for tablets */
   }
-  
-  .search input{
-    flex:1;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 18px;
+
+  .search input {
+    font-size: 16px; /* Adjust font size for smaller screens */
+    padding: 6px; /* Adjust padding on smaller screens */
   }
+}
+
+@media (max-width: 768px) {
+  .topBar {
+    margin: 12px 8px;
+    gap: 10px; /* Reduce gap for mobile */
+  }
+
+  .search {
+    padding: 12px 10px; /* Adjust padding for smaller screens */
+    flex-direction: row; /* Ensure input remains within available space */
+  }
+
+  .search input {
+    font-size: 14px; /* Smaller font size for mobile */
+    padding: 6px; /* Less padding for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .topBar {
+    margin: 12px 5px; /* Smaller margin for very small screens */
+    gap: 8px; /* Further reduce gap for very small screens */
+  }
+
+  .search {
+    padding: 10px 8px; /* Reduced padding */
+  }
+
+  .search input {
+    font-size: 14px; /* Ensure the font fits smaller screens */
+    padding: 4px; /* Minimal padding */
+  }
+}

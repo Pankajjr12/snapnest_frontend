@@ -15,15 +15,38 @@
   display: none;
 }
 
-
 /* Hide icons on screens smaller than 640px (e.g. mobile) */
 @media (max-width: 640px) {
-  .overlayIcons {
-    display: none;
+  .galleryItem:hover .saveButton {
+    padding: 8px 12px; /* Smaller padding */
+    font-size: 12px;   /* Smaller font size */
+    border-radius: 20px; /* Slightly smaller border-radius */
+    top: 8px;         /* Adjusted position */
+    right: 8px;       /* Adjusted position */
+  }
+
+  .galleryItem:hover .overlayIcons {
+    display: block;
+    position: absolute;
+    bottom: 8px;     /* Reduced bottom margin */
+    right: 8px;      /* Reduced right margin */
+    display: flex;
+    align-items: center;
+    gap: 4px;        /* Smaller gap between icons */
+  }
+
+  .overlayIcons button {
+    width: 24px;     /* Smaller button size */
+    height: 24px;    /* Smaller button size */
+  }
+
+  .overlayIcons button img {
+    width: 16px;     /* Smaller icon size */
+    height: 16px;    /* Smaller icon size */
   }
 }
 
-
+/* Hover effects for save button and icons */
 .galleryItem:hover .overlay {
   display: block;
   position: absolute;
