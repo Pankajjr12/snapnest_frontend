@@ -79,7 +79,7 @@ const LeftBar = () => {
                 className="profileImage"
               />
             ) : (
-              <AccountCircle style={{ fontSize: 40, color: "#888" }} />
+              <AccountCircle style={{ color: "#888" }} />
             )}
           </div>
         )}

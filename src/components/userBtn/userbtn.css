@@ -100,8 +100,8 @@
 
   /* Make sure the Login/Sign Up button fits properly */
   .loginLink {
-    font-size: 16px;
-    padding: 8px 16px; /* Adjust for small screen */
+    font-size: 12px;
+    padding: 8px 14px; /* Adjust for small screen */
   }
 
   /* Adjust spacing and font for smaller screens */

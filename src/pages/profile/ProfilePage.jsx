@@ -32,59 +32,61 @@ const ProfilePage = () => {
   const isCurrentUser = currentUser?.username === data.username;
 
   return (
-    <div className="profilePage">
-      <div className="group relative w-[120px] h-[120px] rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[3px] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-        <div className="w-full h-full rounded-full bg-white p-[3px]">
-          <Image
-            className="rounded-full w-full h-full object-cover"
-            w={100}
-            h={100}
-            path={data.img || "/general/noAvatar.png"}
-            alt="Profile"
-          />
-        </div>
-
-        {/* Optional glowing effect */}
-        <div className="absolute inset-0 rounded-full animate-pulse opacity-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-xl z-[-1]"></div>
-      </div>
-      <h1 className="profileName">{data.displayName}</h1>
-      <span className="profileUsername">@{data.username}</span>
-      <div className="followCounts">
-        {data.followerCount} followers · {data.followingCount} followings
-      </div>
-      <div className="profileInteractions">
-        <Image path="/general/share.svg" alt="" />
-        <div className="profileButtons">
-          <button>Message</button>
-          {!isCurrentUser && (
-            <FollowButton
-              isFollowing={data.isFollowing}
-              username={data.username}
+    <>
+      <div className="profilePage">
+        <div className="group relative w-[120px] h-[120px] rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[3px] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          <div className="w-full h-full rounded-full bg-white p-[3px]">
+            <Image
+              className="rounded-full w-full h-full object-cover"
+              w={100}
+              h={100}
+              path={data.img || "/general/noAvatar.png"}
+              alt="Profile"
             />
-          )}
+          </div>
+
+          {/* Optional glowing effect */}
+          <div className="absolute inset-0 rounded-full animate-pulse opacity-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-xl z-[-1]"></div>
         </div>
-        <Image path="/general/more.svg" alt="" />
-      </div>
-      <div className="profileOptions">
-        <span
-          onClick={() => setType("created")}
-          className={type === "created" ? "active" : ""}
-        >
-          Created
-        </span>
-        <span
-          onClick={() => setType("saved")}
-          className={type === "saved" ? "active" : ""}
-        >
-          Saved
-        </span>
+        <h1 className="profileName">{data.displayName}</h1>
+        <span className="profileUsername">@{data.username}</span>
+        <div className="followCounts">
+          {data.followerCount} followers · {data.followingCount} followings
+        </div>
+        <div className="profileInteractions">
+          <Image path="/general/share.svg" alt="" />
+          <div className="profileButtons">
+            <button>Message</button>
+            {!isCurrentUser && (
+              <FollowButton
+                isFollowing={data.isFollowing}
+                username={data.username}
+              />
+            )}
+          </div>
+          <Image path="/general/more.svg" alt="" />
+        </div>
+        <div className="profileOptions">
+          <span
+            onClick={() => setType("created")}
+            className={type === "created" ? "active" : ""}
+          >
+            Created
+          </span>
+          <span
+            onClick={() => setType("saved")}
+            className={type === "saved" ? "active" : ""}
+          >
+            Saved
+          </span>
+        </div>
       </div>
       {type === "created" ? (
         <Gallery userId={data._id} />
       ) : (
         <Board userId={data._id} />
       )}
-    </div>
+    </>
   );
 };
 

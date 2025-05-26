@@ -10,7 +10,7 @@
   flex: 1;
   background-color: #f1f1f1;
   border-radius: 16px;
-  padding: 16px;
+  padding: 10px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -21,8 +21,8 @@
   background-color: transparent;
   border: none;
   outline: none;
-  font-size: 18px;
-  padding: 8px;
+  font-size: 14px;
+  padding: 4px;
 }
 .search input:hover,
   .search input:focus {
@@ -54,13 +54,13 @@
   }
 
   .search {
-    padding: 12px 10px;
+    padding: 8px 10px;
     flex-direction: row;
   }
 
   .search input {
     font-size: 14px;
-    padding: 6px;
+    padding: 4px;
   }
 }
 
@@ -71,7 +71,7 @@
   }
 
   .search {
-    padding: 10px 8px;
+    padding: 4px 8px;
   }
 
   .search input {
