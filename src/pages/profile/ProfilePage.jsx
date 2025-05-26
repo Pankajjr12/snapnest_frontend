@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const [type, setType] = useState("saved");
 
   const { username } = useParams();
-  const currentUser = useAuthStore((state) => state.currentUser);  // Get the current user from the store
+  const currentUser = useAuthStore((state) => state.currentUser); // Get the current user from the store
 
   const { isPending, error, data } = useQuery({
     queryKey: ["profile", username],
@@ -33,13 +33,20 @@ const ProfilePage = () => {
 
   return (
     <div className="profilePage">
-      <Image
-        className="profileImg"
-        w={100}
-        h={100}
-        path={data.img || "/general/noAvatar.png"}
-        alt=""
-      />
+      <div className="group relative w-[120px] h-[120px] rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[3px] shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div className="w-full h-full rounded-full bg-white p-[3px]">
+          <Image
+            className="rounded-full w-full h-full object-cover"
+            w={100}
+            h={100}
+            path={data.img || "/general/noAvatar.png"}
+            alt="Profile"
+          />
+        </div>
+
+        {/* Optional glowing effect */}
+        <div className="absolute inset-0 rounded-full animate-pulse opacity-20 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-xl z-[-1]"></div>
+      </div>
       <h1 className="profileName">{data.displayName}</h1>
       <span className="profileUsername">@{data.username}</span>
       <div className="followCounts">

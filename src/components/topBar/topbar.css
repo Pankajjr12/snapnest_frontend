@@ -22,55 +22,72 @@
   border: none;
   outline: none;
   font-size: 18px;
-  padding: 8px; /* Add padding for input field */
+  padding: 8px;
 }
+.search input:hover,
+  .search input:focus {
+    border-color: #6a9cfb; /* Light fantasy blue */
+    box-shadow: 0 0 8px #6a9cfb88;
+  }
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .topBar {
     margin: 16px 10px;
-    gap: 12px; /* Reduced gap between elements for tablets */
+    gap: 12px;
   }
 
   .search {
-    padding: 10px; /* Reduce padding for tablets */
+    padding: 10px;
   }
 
   .search input {
-    font-size: 16px; /* Adjust font size for smaller screens */
-    padding: 6px; /* Adjust padding on smaller screens */
+    font-size: 16px;
+    padding: 6px;
   }
 }
 
 @media (max-width: 768px) {
   .topBar {
     margin: 12px 8px;
-    gap: 10px; /* Reduce gap for mobile */
+    gap: 10px;
   }
 
   .search {
-    padding: 12px 10px; /* Adjust padding for smaller screens */
-    flex-direction: row; /* Ensure input remains within available space */
+    padding: 12px 10px;
+    flex-direction: row;
   }
 
   .search input {
-    font-size: 14px; /* Smaller font size for mobile */
-    padding: 6px; /* Less padding for mobile */
+    font-size: 14px;
+    padding: 6px;
   }
 }
 
 @media (max-width: 480px) {
   .topBar {
-    margin: 12px 5px; /* Smaller margin for very small screens */
-    gap: 8px; /* Further reduce gap for very small screens */
+    margin: 12px 5px;
+    gap: 8px;
   }
 
   .search {
-    padding: 10px 8px; /* Reduced padding */
+    padding: 10px 8px;
   }
 
   .search input {
-    font-size: 14px; /* Ensure the font fits smaller screens */
-    padding: 4px; /* Minimal padding */
+    font-size: 14px;
+    padding: 4px;
+
+    /* Add border and transition for hover/focus */
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Hover and focus effect on input */
+  .search input:hover,
+  .search input:focus {
+    border-color: #6a9cfb; /* Light fantasy blue */
+    box-shadow: 0 0 8px #6a9cfb88;
   }
 }

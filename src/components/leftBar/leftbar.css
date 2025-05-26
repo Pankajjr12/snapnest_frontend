@@ -37,6 +37,11 @@
 
 /* Hover combo menu styles */
 
+.profileHoverArea {
+  position: relative;
+  z-index: 10000;
+}
+
 .profileHoverArea:hover .hoverComboMenu {
   display: flex;
 }
@@ -53,9 +58,12 @@
 .profileImage:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 10000;
 }
 
 .hoverComboMenu {
+  z-index: 99999;
   position: absolute;
   bottom: 60px;
   left: 140%;
@@ -66,7 +74,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  z-index: 9999;
+  overflow: hidden;
   padding: 8px 0;
 }
 

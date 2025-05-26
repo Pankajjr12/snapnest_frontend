@@ -1,23 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./leftbar.css";
 
+
 import Image from "../image/ImageComponent";
 import useAuthStore from "../../utils/useAuthStore";
 import apiRequest from "../../utils/apiRequest";
-import { AccountCircle } from "@mui/icons-material"; // Material UI icon for dummy image
+import { AiFillHome } from "react-icons/ai";
+import { AccountCircle } from "@mui/icons-material"; 
+import { AiOutlineHome } from "react-icons/ai";
+import { FaSquarePlus } from "react-icons/fa6";
+import { FaRegSquarePlus } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router";
+import Settings from "../../pages/settings/Settings";  // Import Settings modal
+import { useTheme } from "../../utils/ThemeContext";
 
 const LeftBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);  // modal state
   const dropdownRef = useRef(null);
   const { currentUser, removeCurrentUser } = useAuthStore();
-  const navigate = useNavigate(); // Adding navigate for programmatic navigation
+  const navigate = useNavigate();
+  const { isDarkMode } = useTheme();
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -45,6 +53,7 @@ const LeftBar = () => {
     }
   };
 
+
   return (
     <div className="leftBar">
       <div className="menuIcons">
@@ -52,25 +61,24 @@ const LeftBar = () => {
           <Image path="/general/logo.png" alt="" className="logo" />
         </Link>
         <Link to="/" className="menuIcon">
-          <Image path="/general/home.svg" alt="" />
+        {isDarkMode ? <AiOutlineHome color="#fff" size={24} /> : <AiFillHome color="#000" size={24} />}
         </Link>
         <Link to="/create" className="menuIcon">
-          <Image path="/general/create.svg" alt="" />
+        {isDarkMode ? <FaRegSquarePlus color="#fff" size={24} /> : <FaSquarePlus color="#000" size={24} />}
         </Link>
       </div>
 
-      {/* Profile click dropdown (mobile-friendly) */}
+      {/* Profile click dropdown */}
       <div className="mobileProfileDropdown" ref={dropdownRef}>
         {currentUser && (
           <div className="profileHoverArea" onClick={toggleDropdown}>
             {currentUser.img ? (
               <Image
-                path={`/uploads/${currentUser.img}`} // Use the actual profile image path
+                path={`${currentUser.img}`} 
                 alt="Profile"
                 className="profileImage"
               />
             ) : (
-              // Fallback to Material UI AccountCircle icon if no profile picture is available
               <AccountCircle style={{ fontSize: 40, color: "#888" }} />
             )}
           </div>
@@ -85,19 +93,27 @@ const LeftBar = () => {
             >
               Profile
             </Link>
-            <Link
-              to="/settings"
+
+            {/* Change from Link to div so clicking opens modal instead of navigation */}
+            <div
               className="dropdownItem"
-              onClick={handleDropdownItemClick}
+              onClick={() => {
+                setShowSettings(true);
+                setDropdownOpen(false); // close dropdown
+              }}
             >
               Settings
-            </Link>
+            </div>
+
             <button className="dropdownItem" onClick={handleLogout}>
               Logout
             </button>
           </div>
         )}
       </div>
+
+      {/* Render Settings modal if open */}
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
     </div>
   );
 };

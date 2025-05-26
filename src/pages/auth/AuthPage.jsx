@@ -22,28 +22,47 @@ const AuthPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-
-    if (profilePic) {
-      formData.append("profilePic", profilePic);
+  
+    const formData = new FormData();
+    const form = e.target;
+  
+    // Always present
+    formData.append("email", form.email.value);
+    formData.append("password", form.password.value);
+  
+    // Only for registration
+    if (isRegister) {
+      formData.append("username", form.username.value);
+      formData.append("displayName", form.displayName.value);
+      if (profilePic) {
+        formData.append("profilePic", profilePic);
+      }
     }
-
+  
     try {
       const res = await apiRequest.post(
         `/users/auth/${isRegister ? "register" : "login"}`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-
-      setCurrentUser(res.data);
-
-      navigate("/");
+  
+      if (res && res.data) {
+        setCurrentUser(res.data);
+        navigate("/");
+      }
     } catch (err) {
-      setError(err.response.data.message);
-      setSnackbarMessage(err.response.data.message);
+      setError(err.response?.data?.message || "Something went wrong");
+      setSnackbarMessage(err.response?.data?.message || "Something went wrong");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }
   };
+  
+  
 
   const handleSnackbarClose = () => {
     setOpenSnackbar(false); // Close snackbar when clicked away

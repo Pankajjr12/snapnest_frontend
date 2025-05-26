@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import "./userbtn.css";
- // Ensure correct import for react-router-dom
 import Image from "../image/ImageComponent";
 import apiRequest from "../../utils/apiRequest";
 import useAuthStore from "../../utils/useAuthStore";
 import { Link, useNavigate } from "react-router";
+import Settings from '../../pages/settings/Settings'
+import { useTheme } from "../../utils/ThemeContext";
+
+import { IoIosArrowDropdown } from "react-icons/io";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 
 const UserButton = () => {
   const [open, setOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false); // ✅ State for settings modal
   const navigate = useNavigate();
   const { currentUser, removeCurrentUser } = useAuthStore();
+   const { isDarkMode } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -25,23 +31,28 @@ const UserButton = () => {
     <div className="userButton">
       <Image path={currentUser.img || "/general/noAvatar.png"} alt="User Avatar" />
       <div onClick={() => setOpen((prev) => !prev)}>
-        <Image path="/general/arrow.svg" alt="Arrow" className="arrow" />
+         {isDarkMode ? <IoIosArrowDropdown color="#fff" size={28} /> : <IoIosArrowDropdownCircle color="#000" size={28} />}
       </div>
       {open && (
         <div className="userOptions">
           <Link to={`/${currentUser.username}`} className="userOption">
             Profile
           </Link>
-          <div className="userOption">Settings</div>
+          <div className="userOption" onClick={() => setShowSettings(true)}>
+            Settings
+          </div>
           <div className="userOption" onClick={handleLogout}>
             Logout
           </div>
         </div>
       )}
+
+      {/* ✅ Render settings modal/component */}
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
     </div>
   ) : (
     <Link to="/auth" className="loginLink">
-      Login / Sign Up
+      Login
     </Link>
   );
 };

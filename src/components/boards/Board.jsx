@@ -1,9 +1,9 @@
 import React from "react";
 import "./board.css";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router";
+import { Link } from "react-router"; // Make sure you are using "react-router-dom" instead
 import apiRequest from "../../utils/apiRequest";
-import { format } from 'timeago.js';
+import { format } from "timeago.js";
 import Image from "../image/ImageComponent";
 
 const Board = ({ userId }) => {
@@ -12,26 +12,24 @@ const Board = ({ userId }) => {
     queryFn: () => apiRequest.get(`/boards/${userId}`).then((res) => res.data),
   });
 
-  if (isPending) return "Loading...";
+  if (isPending) return <div className="loading">Loading saved pins...</div>;
 
-  if (error) return "An error has occurred: " + error.message;
+  if (error) return <div className="error">Error loading saved pins: {error.message}</div>;
 
-  console.log(data);
+  if (!data?.length) return <div className="empty">No saved boards found.</div>;
 
   return (
     <div className="collections">
-      {/* COLLECTION */}
-      {data?.map((board) => (
+      {data.map((board) => (
         <Link
           to={`/search?boardId=${board._id}`}
           className="collection"
           key={board._id}
         >
-          {/* Check if firstPin exists before accessing 'media' */}
           {board.firstPin ? (
-            <Image path={board.firstPin.media} alt="" />
+            <Image path={board.firstPin.media} alt="Board Cover" />
           ) : (
-            <div className="default-image">No Image</div> // Display a default message or image if no firstPin exists
+            <div className="default-image">No Image</div>
           )}
           <div className="collectionInfo">
             <h1>{board.title}</h1>

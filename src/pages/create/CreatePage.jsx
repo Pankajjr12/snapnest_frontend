@@ -173,9 +173,14 @@ const CreatePage = () => {
             {(!isPending || !error) && (
               <div className="createFormItem">
                 <label htmlFor="board">Board</label>
-                <select name="board" id="board">
+                <select
+                  name="board"
+                  id="board"
+                  onChange={(e) =>
+                    setNewBoard(e.target.options[e.target.selectedIndex].text)
+                  }
+                >
                   <option value="">Choose a board</option>
-                  {/* Safeguard to check if data is valid */}
                   {Array.isArray(data) && data.length > 0 ? (
                     [
                       ...new Map(
@@ -190,12 +195,14 @@ const CreatePage = () => {
                     <option disabled>No boards available</option>
                   )}
                 </select>
+
                 <div className="newBoard">
-                  {newBoard && (
+                  {newBoard && newBoard !== "Choose a board" && (
                     <div className="newBoardContainer">
                       <div className="newBoardItem">{newBoard}</div>
                     </div>
                   )}
+
                   <div className="createBoardButton" onClick={handleNewBoard}>
                     Create new board
                   </div>
