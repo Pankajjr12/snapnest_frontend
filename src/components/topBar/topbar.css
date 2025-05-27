@@ -67,7 +67,7 @@
 @media (max-width: 480px) {
   .topBar {
     margin: 12px 5px;
-    gap: 8px;
+    gap: 6px;
   }
 
   .search {

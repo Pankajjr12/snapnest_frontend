@@ -1,6 +1,10 @@
 import React from 'react'
 import Gallery from '../../components/gallery/Gallery'
-import { useParams } from 'react-router';
+import ScrollTabs from '../../components/scroll/ScrollTabs';
+
+
+
+
 
 const HomePage = () => {
    // Retrieve category from the URL parameter
@@ -9,8 +13,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <Gallery  /> {/* Pass the categoryId to the Gallery component */}
-    </div>
+  <ScrollTabs />
+    <Gallery />
+  </div>
+
   );
 }
 

@@ -86,8 +86,8 @@
 @media (max-width: 475px) {
   /* Make the login/signup button full-width and adjust padding */
   .loginLink {
-    font-size: 16px;
-    padding: 8px 16px; /* Slightly reduced padding for smaller screens */
+    font-size: 14px;
+    padding: 6px 12px; /* Slightly reduced padding for smaller screens */
     width: auto; /* Avoid full-width and allow it to shrink */
     border-radius: 8px; /* Slightly less rounded for mobile */
     text-align: center;

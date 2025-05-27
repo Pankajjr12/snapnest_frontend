@@ -4,6 +4,7 @@ import Image from "../image/ImageComponent";
 import { Link } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
+import useAuthStore from "../../utils/useAuthStore.js"; // ✅ import Zustand auth store
 
 const interact = async (id, type) => {
   const res = await apiRequest.post(`/pins/interact/${id}`, { type });
@@ -13,6 +14,9 @@ const interact = async (id, type) => {
 const GalleryItem = ({ item, onLoad }) => {
   const [isLoading, setIsLoading] = useState(true);
   const queryClient = useQueryClient();
+
+  const currentUser = useAuthStore((state) => state.currentUser); // ✅ check login state
+  const isLoggedIn = !!currentUser;
 
   const maxHeight = 800;
   const optimizedHeight = Math.min((372 * item.height) / item.width, maxHeight);
@@ -34,6 +38,14 @@ const GalleryItem = ({ item, onLoad }) => {
       queryClient.invalidateQueries({ queryKey: ["interactionCheck", item._id] });
     },
   });
+
+  const handleSaveClick = () => {
+    if (!isLoggedIn) {
+      alert("Please log in to save posts.");
+      return;
+    }
+    saveMutation.mutate();
+  };
 
   if (interactionQuery.isPending || interactionQuery.isError) return null;
 
@@ -60,18 +72,13 @@ const GalleryItem = ({ item, onLoad }) => {
       <button
         className="saveButton"
         disabled={saveMutation.isPending}
-        onClick={() => saveMutation.mutate()}
+        onClick={handleSaveClick} // ✅ using custom handler
       >
         {interactionQuery.data.isSaved ? "Saved" : "Save"}
       </button>
 
       <div className="overlayIcons">
-        {/* <button>
-          <Image path="/general/share.svg" alt="Share" />
-        </button>
-        <button>
-          <Image path="/general/more.svg" alt="More" />
-        </button> */}
+        {/* future share/more buttons */}
       </div>
     </div>
   );

@@ -6,25 +6,28 @@ import Comments from "../../components/comments/Comments";
 import { useQuery } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import Image from "../../components/image/ImageComponent";
+import useAuthStore from "../../utils/useAuthStore.js"; // ✅ Import Zustand store
 
 const PostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const currentUser = useAuthStore((state) => state.currentUser); // ✅ Zustand state
+  const isLoggedIn = !!currentUser;
+
   const handleBackClick = () => {
-    navigate(-1); // Navigate back to the previous page
+    navigate(-1);
   };
+
   const { isPending, error, data } = useQuery({
     queryKey: ["pin", id],
     queryFn: () => apiRequest.get(`/pins/${id}`).then((res) => res.data),
   });
 
   if (isPending) return "Loading...";
-
   if (error) return "An error has occurred: " + error.message;
-
   if (!data) return "Pin not found!";
 
-  console.log(data);
   return (
     <>
       <svg
@@ -43,7 +46,8 @@ const PostPage = () => {
             <Image path={data.media} alt="" w={480} />
           </div>
           <div className="postDetails">
-            <PostInteractions postId={id} />
+            {/* ✅ Pass isLoggedIn to enable/disable interactions */}
+            <PostInteractions postId={id} isLoggedIn={isLoggedIn} />
             <Link to={`/${data.user.username}`} className="postUser">
               <Image path={data.user.img || "/general/noAvatar.png"} />
               <span>{data.user.displayName}</span>
