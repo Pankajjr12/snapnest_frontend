@@ -1,34 +1,38 @@
 .scroll-tabs-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-bottom: 16px;
-    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-    scrollbar-width: none; /* hide scrollbar Firefox */
-  }
-  
-  .scroll-tabs-wrapper::-webkit-scrollbar {
-    display: none; /* hide scrollbar Chrome/Safari */
-  }
-  
-  .scroll-tabs-container {
-    display: flex;
-    gap: 12px;
-    padding: 10px 16px;
-    white-space: nowrap; /* prevent wrapping */
-    /* important: make sure it can be wider than container */
-    min-width: max-content;
-  }
-  
-  .scroll-tab {
-    flex: 0 0 auto;
-    padding: 8px 16px;
-    background: #eee;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    white-space: nowrap;
-    transition: background 0.3s;
-  }
-  
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 24px 0;                /* Adds space above and below the tab row */
+  padding: 12px 0;               /* Vertical padding inside wrapper */
+  -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
+  scrollbar-width: none;             /* Hide scrollbar in Firefox */
+}
+
+.scroll-tabs-wrapper::-webkit-scrollbar {
+  display: none;                    /* Hide scrollbar in Chrome/Safari */
+}
+
+
+
+.scroll-tab {
+  flex: 0 0 auto;
+  padding: 10px 20px;
+  background: #eee;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: background 0.3s;
+  margin: 4px 8px; /* <-- Updated: adds horizontal spacing (left & right) */
+}
+
+
+/* Optional: Hover and active states */
+.scroll-tab:hover {
+  background: #ddd;
+}
+
+.scroll-tab:active {
+  background: #ccc;
+}

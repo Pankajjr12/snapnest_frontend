@@ -1,23 +1,16 @@
-import React from 'react'
-import Gallery from '../../components/gallery/Gallery'
-import ScrollTabs from '../../components/scroll/ScrollTabs';
+import React, { useState } from "react";
+import Gallery from "../../components/gallery/Gallery";
+import ScrollTabs from "../../components/scroll/ScrollTabs";
 
-
-
-
-
-const HomePage = () => {
-   // Retrieve category from the URL parameter
-
-    // Extract categoryId from URL parameters
+const HomePage= ({ userId }) => {
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
 
   return (
-    <div>
-  <ScrollTabs />
-    <Gallery />
-  </div>
-
+    <>
+      <ScrollTabs userId={userId} onBoardSelect={setSelectedBoardId} />
+      <Gallery boardId={selectedBoardId} />
+    </>
   );
-}
+};
 
-export default HomePage
+export default HomePage;
