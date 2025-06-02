@@ -3,27 +3,26 @@ import GalleryItem from "../galleryItem/GalleryItem";
 import "./gallery.css";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Skeleton from "../skelton/Skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../spinner/Loader";
 
-const fetchPins = async ({ pageParam, search, userId, boardId, type }) => {
+const fetchPins = async ({ pageParam, search, userId, boardId, type, category }) => {
   let endpoint = "/pins";
   if (type === "created") endpoint = `/pins/user/${userId}`;
   else if (type === "saved") endpoint = `/pins/saved/${userId}`;
 
   const res = await axios.get(
-    `${import.meta.env.VITE_API_ENDPOINT}${endpoint}?cursor=${pageParam}&search=${search || ""}&boardId=${boardId || ""}`
+    `${import.meta.env.VITE_API_ENDPOINT}${endpoint}?cursor=${pageParam}&search=${search || ""}&boardId=${boardId || ""}&category=${category || ""}`
   );
   return res.data;
 };
 
-const Gallery = ({ search, userId, boardId, type }) => {
+const Gallery = ({ search, userId, boardId, type,category }) => {
   const [loadedImages, setLoadedImages] = useState(0);
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
-    queryKey: ["pins", search, userId, boardId, type],
+    queryKey: ["pins", search, userId, boardId, type,category],
     queryFn: ({ pageParam = 0 }) =>
-      fetchPins({ pageParam, search, userId, boardId, type }),
+      fetchPins({ pageParam, search, userId, boardId, type ,category}),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });

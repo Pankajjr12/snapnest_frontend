@@ -29,7 +29,7 @@
   top: 120%;
   padding: 16px;
   border-radius: 8px;
-  background-color: white;
+  background-color: var(--user-options-bg);
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -86,8 +86,8 @@
 @media (max-width: 475px) {
   /* Make the login/signup button full-width and adjust padding */
   .loginLink {
-    font-size: 14px;
-    padding: 6px 12px; /* Slightly reduced padding for smaller screens */
+    font-size: 12px;
+    padding: 4px 10px; /* Slightly reduced padding for smaller screens */
     width: auto; /* Avoid full-width and allow it to shrink */
     border-radius: 8px; /* Slightly less rounded for mobile */
     text-align: center;
@@ -120,7 +120,7 @@
     top: 100%; /* Position below the button */
     right: 0;  /* Align to the right side */
     z-index: 1000; /* Ensure it appears above other content */
-    background-color: white; /* Optional, depending on design */
+    background-color: var(--user-options-bg); /* Optional, depending on design */
     border: 1px solid #ccc; /* Optional, for visual clarity */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);    width: 100%; /* Full width dropdown */
     top: 100%;

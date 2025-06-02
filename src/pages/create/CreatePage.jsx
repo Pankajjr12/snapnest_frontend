@@ -8,11 +8,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useEditorStore from "../../utils/editorStore";
 import IKImage from "../../components/image/ImageComponent";
 import BoardForm from "./BoardForm";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Add Post Mutation function
 const addPost = async (post) => {
   const res = await apiRequest.post("/pins", post);
-  console.log(res.data);
   return res.data;
 };
 
@@ -52,7 +53,7 @@ const CreatePage = () => {
     }
   }, [file]);
 
-  const boardFormRef = useRef(null); // 👈 Create ref
+  const boardFormRef = useRef(null);
 
   const mutation = useMutation({
     mutationFn: addPost,
@@ -60,18 +61,26 @@ const CreatePage = () => {
       resetStore();
       navigate(`/pin/${data._id}`);
     },
+    onError: (error) => {
+      toast.error("Something went wrong while creating the pin.");
+    },
   });
 
   const handleSubmit = async () => {
     if (isEditing) {
       setIsEditing(false);
     } else {
+      if (!file) {
+        toast.error("Please upload an image file.");
+        return;
+      }
+
       const formData = new FormData(formRef.current);
       formData.append("media", file);
       formData.append("textOptions", JSON.stringify(textOptions));
       formData.append("canvasOptions", JSON.stringify(canvasOptions));
-      formData.append("newBoard", newBoard); // Add the selected categories to the form data
-      console.log(formData);
+      formData.append("newBoard", newBoard);
+
       mutation.mutate(formData);
     }
   };
@@ -85,22 +94,12 @@ const CreatePage = () => {
 
   const handleNewBoard = () => {
     setIsNewBoardOpen(true);
-    // scroll into view after opening
     setTimeout(() => {
       boardFormRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }, 0);
-  };
-
-  const handleCategoryChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setSelectedCategories((prev) => [...prev, value]); // Add the selected category to the array
-    } else {
-      setSelectedCategories((prev) => prev.filter((cat) => cat !== value)); // Remove the deselected category
-    }
   };
 
   return (
@@ -128,15 +127,24 @@ const CreatePage = () => {
                   <span>Choose a file</span>
                 </div>
                 <div className="uploadInfo">
-                  We recommend using high-quality .jpg files less than 20 MB or
-                  .mp4 files less than 200 MB.
+                  We recommend using high-quality .jpg files less than 5 MB.
                 </div>
               </label>
               <input
                 type="file"
                 id="file"
                 hidden
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => {
+                  const selectedFile = e.target.files[0];
+                  if (selectedFile) {
+                    const MAX_SIZE_MB = 5;
+                    if (selectedFile.size > MAX_SIZE_MB * 1024 * 1024) {
+                      toast.error("File size cannot exceed 5MB.");
+                      return;
+                    }
+                    setFile(selectedFile);
+                  }
+                }}
               />
             </>
           )}
@@ -169,8 +177,7 @@ const CreatePage = () => {
               />
             </div>
 
-            {/* FIXED: SELECT OR ADD BOARD */}
-            {(!isPending || !error) && (
+            {!isPending && !error && (
               <div className="createFormItem">
                 <label htmlFor="board">Board</label>
                 <select
@@ -202,7 +209,6 @@ const CreatePage = () => {
                       <div className="newBoardItem">{newBoard}</div>
                     </div>
                   )}
-
                   <div className="createBoardButton" onClick={handleNewBoard}>
                     Create new board
                   </div>

@@ -10,8 +10,10 @@ import Image from "../../components/image/ImageComponent";
 import FollowButton from "./FollowButton";
 import Board from "../../components/boards/Board";
 import useAuthStore from "../../utils/useAuthStore";
+import { useTheme } from "../../utils/ThemeContext";
 
 const ProfilePage = () => {
+  const { isDarkMode } = useTheme();
   const [type, setType] = useState("saved");
 
   const { username } = useParams();
@@ -53,7 +55,7 @@ const ProfilePage = () => {
         <div className="followCounts">
           {data.followerCount} followers · {data.followingCount} followings
         </div>
-        <div className="profileInteractions">
+        <div style={{ color: isDarkMode ? "#ffffff" : "#080341" }} className="profileInteractions">
           <Image path="/general/share.svg" alt="" />
           <div className="profileButtons">
             <button>Message</button>

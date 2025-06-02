@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  min-width: 200px; /* Prevent it from shrinking too much */
 }
 
 .search input {
@@ -24,11 +25,13 @@
   font-size: 14px;
   padding: 4px;
 }
+
+/* Hover and focus effect */
 .search input:hover,
-  .search input:focus {
-    border-color: #6a9cfb; /* Light fantasy blue */
-    box-shadow: 0 0 8px #6a9cfb88;
-  }
+.search input:focus {
+  border-color: #6a9cfb;
+  box-shadow: 0 0 8px #6a9cfb88;
+}
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
@@ -39,11 +42,12 @@
 
   .search {
     padding: 10px;
+    max-width: 70%;
   }
 
   .search input {
-    font-size: 16px;
-    padding: 6px;
+    font-size: 14px;
+    padding: 4px;
   }
 }
 
@@ -55,39 +59,37 @@
 
   .search {
     padding: 8px 10px;
-    flex-direction: row;
+    max-width: 60%;
   }
 
   .search input {
-    font-size: 14px;
+    font-size: 13px;
     padding: 4px;
   }
 }
 
 @media (max-width: 480px) {
   .topBar {
-    margin: 12px 5px;
+    margin: 12px 8px;
     gap: 6px;
   }
 
   .search {
     padding: 4px 8px;
+    max-width: 55%;
   }
 
   .search input {
-    font-size: 14px;
+    font-size: 12px;
     padding: 4px;
-
-    /* Add border and transition for hover/focus */
     border: 2px solid transparent;
     border-radius: 8px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Hover and focus effect on input */
   .search input:hover,
   .search input:focus {
-    border-color: #6a9cfb; /* Light fantasy blue */
+    border-color: #6a9cfb;
     box-shadow: 0 0 8px #6a9cfb88;
   }
 }

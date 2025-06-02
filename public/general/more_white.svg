@@ -1,0 +1,5 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF">
+    <ns0:circle cx="18" cy="12" r="2" transform="rotate(90 18 12)" fill="#FFFFFF" />
+    <ns0:circle cx="12" cy="12" r="2" transform="rotate(90 12 12)" fill="#FFFFFF" />
+    <ns0:circle cx="6" cy="12" r="2" transform="rotate(90 6 12)" fill="#FFFFFF" />
+</ns0:svg>
