@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import "./profile.css";
 
 import apiRequest from "../../utils/apiRequest";
-
-import Gallery from "../../components/gallery/Gallery";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Image from "../../components/image/ImageComponent";
 import FollowButton from "./FollowButton";
+import Gallery from "../../components/gallery/Gallery";
 import Board from "../../components/boards/Board";
 import useAuthStore from "../../utils/useAuthStore";
 import { useTheme } from "../../utils/ThemeContext";
+import SavedGallery from "../../components/savedPins/SavedGallery";
+import CreatedGallery from "../../components/savedPins/CreateGallery";
 
 const ProfilePage = () => {
   const { isDarkMode } = useTheme();
-  const [type, setType] = useState("saved");
+  const [type, setType] = useState("created");
 
   const { username } = useParams();
   const currentUser = useAuthStore((state) => state.currentUser); // Get the current user from the store
@@ -55,7 +56,10 @@ const ProfilePage = () => {
         <div className="followCounts">
           {data.followerCount} followers · {data.followingCount} followings
         </div>
-        <div style={{ color: isDarkMode ? "#ffffff" : "#080341" }} className="profileInteractions">
+        <div
+          style={{ color: isDarkMode ? "#ffffff" : "#080341" }}
+          className="profileInteractions"
+        >
           <Image path="/general/share.svg" alt="" />
           <div className="profileButtons">
             <button>Message</button>
@@ -84,9 +88,9 @@ const ProfilePage = () => {
         </div>
       </div>
       {type === "created" ? (
-        <Gallery userId={data._id} />
+        <CreatedGallery userId={data._id} />
       ) : (
-        <Board userId={data._id} />
+        <SavedGallery userId={data._id} />
       )}
     </>
   );

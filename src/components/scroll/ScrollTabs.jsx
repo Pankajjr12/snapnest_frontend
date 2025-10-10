@@ -30,7 +30,7 @@ const ScrollTabs = ({ onCategorySelect }) => {
     { name: "All", image: "/general/all.webp" },
     { name: "Nature", image: "/general/nature.webp" },
     { name: "Animals", image: "/general/animal.webp" },
-    { name: "Art & Culture", image: "/general/art.jpg" },
+    { name: "Culture", image: "/general/art.jpg" },
     { name: "Games", image: "/general/games.webp" },
     { name: "Technology", image: "/general/tech.webp" },
     { name: "Food", image: "/general/food.webp" },

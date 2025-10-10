@@ -7,9 +7,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../spinner/Loader";
 
 const fetchPins = async ({ pageParam, search, userId, boardId, type, category }) => {
-  let endpoint = "/pins";
-  if (type === "created") endpoint = `/pins/user/${userId}`;
+  let endpoint = "/pins"; // default: /api/pins
+
+  if (type === "created") endpoint = `/pins?userId=${userId}`;
   else if (type === "saved") endpoint = `/pins/saved/${userId}`;
+  
 
   const res = await axios.get(
     `${import.meta.env.VITE_API_ENDPOINT}${endpoint}?cursor=${pageParam}&search=${search || ""}&boardId=${boardId || ""}&category=${category || ""}`

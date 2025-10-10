@@ -33,7 +33,7 @@ const GalleryItem = ({ item, onLoad }) => {
   });
 
   const saveMutation = useMutation({
-    mutationFn: () => interact(item._id, "save"),
+    mutationFn: () => interact(item._id, "savedPins"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["interactionCheck", item._id] });
     },

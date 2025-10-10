@@ -12,11 +12,11 @@ const Board = ({ userId }) => {
     queryFn: () => apiRequest.get(`/boards/${userId}`).then((res) => res.data),
   });
 
-  if (isPending) return <div className="loading">Loading saved pins...</div>;
+  if (isPending) return <div className="loading">Loading created pins...</div>;
 
-  if (error) return <div className="error">Error loading saved pins: {error.message}</div>;
+  if (error) return <div className="error">Error loading creating pins: {error.message}</div>;
 
-  if (!data?.length) return <div className="empty">No saved boards found.</div>;
+  if (!data?.length) return <div className="empty">No created boards found.</div>;
 
   return (
     <div className="collections">
