@@ -83,7 +83,6 @@ const LeftBar = () => {
             )}
           </div>
         )}
-
         {dropdownOpen && (
           <div className="hoverComboMenu">
             <Link
