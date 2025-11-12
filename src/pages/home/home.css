@@ -1,5 +1,48 @@
-*{
-    margin: 8px;
-    
- 
-}
+/* Full-page loader styling */
+.fullpage-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+  }
+  
+  /* Optional: fade-out effect when hidden */
+  .fullpage-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* Optional spinner animation override if needed */
+  .fullpage-loader .loader {
+    width: 64px;
+    height: 64px;
+    border: 6px solid #e0e0e0;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Dark mode variant */
+  .dark .fullpage-loader {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .dark .fullpage-loader .loader {
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+  }
+  
