@@ -58,7 +58,7 @@ const LeftBar = () => {
     <div className="leftBar">
       <div className="menuIcons">
         <Link to="/" className="menuIcon">
-          <Image path="/general/logo.png" alt="" className="logo" />
+          <img src="/general/logo.png" alt="" className="logo" />
         </Link>
         <Link to="/" className="menuIcon">
         {isDarkMode ? <AiOutlineHome color="#fff" size={24} /> : <AiFillHome color="#000" size={24} />}
